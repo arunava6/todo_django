@@ -45,7 +45,7 @@ def update_task(request,id):
     return render(request,"update.html",context)
 
 
-def delete_task(id):
+def delete_task(request,id):
     queryset=Task.objects.get(id=id)
     queryset.delete()
     return redirect("/")
