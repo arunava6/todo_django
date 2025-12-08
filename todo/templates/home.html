@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap Todo App — Modify Without JS</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <style>
+        .task-check:checked + label {
+            text-decoration: line-through;
+            color: gray;
+        }
+        .task-row:hover .delete-btn {
+            opacity: 1;
+        }
+        .delete-btn {
+            opacity: 0.3;
+            transition: 0.2s;
+        }
+        details summary {
+            list-style: none;
+            cursor: pointer;
+        }
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-light">
+
+<div class="container py-5">
+    <h2 class="text-center mb-4 fw-bold">Todo App </h2>
+
+    <!-- ADD TASK SECTION -->
+    <details class="mb-4">
+        <summary class="btn btn-primary">+ Add New Task</summary>
+        <div class="card card-body mt-3">
+            <label class="form-label">Write Your Task:</label>
+            <input type="text" class="form-control mb-2" placeholder="Type task here…">
+            <button class="btn btn-success w-100">Add Task</button>
+        </div>
+    </details>
+
+    <!-- ACTIVE TASKS -->
+    <h4>Active Tasks</h4>
+    <div class="list-group">
+
+        <!-- Task 1 -->
+        <div class="list-group-item task-row">
+            <div class="d-flex align-items-center">
+
+                <input type="checkbox" class="form-check-input me-3 task-check">
+                <label class="flex-grow-1 task-text">Learn Bootstrap</label>
+
+                <!-- Modify Button + Editor -->
+                <details class="ms-3">
+                    <summary class="btn btn-warning btn-sm">Modify</summary>
+                    <div class="card card-body mt-3 p-2">
+                        <label>Edit Task:</label>
+                        <input type="text" class="form-control mb-2" value="Learn Bootstrap">
+                        <button class="btn btn-success btn-sm w-100">Save </button>
+                    </div>
+                </details>
+
+                <button class="btn btn-sm btn-danger delete-btn ms-3">Delete</button>
+            </div>
+        </div>
+
+        <!-- Task 2 -->
+        <div class="list-group-item task-row">
+            <div class="d-flex align-items-center">
+
+                <input type="checkbox" class="form-check-input me-3 task-check">
+                <label class="flex-grow-1 task-text">Complete Django Project</label>
+
+                <details class="ms-3">
+                    <summary class="btn btn-warning btn-sm">Modify</summary>
+                    <div class="card card-body mt-3 p-2">
+                        <label>Edit Task:</label>
+                        <input type="text" class="form-control mb-2" value="Complete Django Project">
+                        <button class="btn btn-success btn-sm w-100">Save</button>
+                    </div>
+                </details>
+
+                <button class="btn btn-sm btn-danger delete-btn ms-3">Delete</button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- COMPLETED TASKS -->
+    <h4 class="mt-5">Completed Tasks</h4>
+    <div class="list-group">
+
+        <div class="list-group-item task-row">
+            <div class="d-flex align-items-center">
+
+                <input type="checkbox" class="form-check-input me-3 task-check" checked>
+                <label class="flex-grow-1 task-text">Old Completed Task</label>
+
+                <details class="ms-3">
+                    <summary class="btn btn-warning btn-sm">Modify</summary>
+                    <div class="card card-body mt-3 p-2">
+                        <label>Edit Task:</label>
+                        <input type="text" class="form-control mb-2" value="Old Completed Task">
+                        <button class="btn btn-success btn-sm w-100">Save </button>
+                    </div>
+                </details>
+
+                <button class="btn btn-sm btn-danger delete-btn ms-3">Delete</button>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
