@@ -1,7 +1,34 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from .models import *
+from django.contrib.auth.models import User
+from django.contrib import messages
+
 # Create your views here.
+def register(request):
+    if request.method=="POST":
+        data=request.POST
+        first_name=data.get("first_name")
+        last_name=data.get("last_name")
+        email=data.get("email")
+        password=data.get("password")
+
+        if User.objects.filter(email=email).exists():
+            messages.warning(request, "Email already exists!")
+            return redirect("/register/")
+        
+        user=User.objects.create(
+            first_name=first_name,
+            last_name=last_name,
+            email=email
+        )
+        user.set_password(password)
+        user.save()
+        messages.success(request, "Account created successfully!.")
+        return redirect("/register/")
+    
+    return render(request,"register.html")
+
 
 def add_task(request):
     if request.method=="POST":
@@ -24,6 +51,7 @@ def add_task(request):
     return render(request,"home.html",context)
 
 
+# for updating the task
 def update_task(request,id):
     queryset=Task.objects.get(id=id)
 

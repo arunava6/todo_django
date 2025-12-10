@@ -22,5 +22,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',add_task,name="add_task"),
     path('update/',update_task,name="update"),
+    path('register/',register,name="register"),
     
 ]
