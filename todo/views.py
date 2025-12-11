@@ -3,6 +3,8 @@ from django.http import HttpResponse
 from .models import *
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def register(request):
@@ -25,11 +27,40 @@ def register(request):
         user.set_password(password)
         user.save()
         messages.success(request, "Account created successfully!.")
-        return redirect("/register/")
+        return redirect("/login/")
     
     return render(request,"register.html")
 
+def login_view(request):
+    if request.method=="POST":
+        data=request.POST
+        email=data.get("email")
+        password=data.get("password")
 
+        try:
+            user_obj = User.objects.get(email=email)
+        except:
+            messages.warning(request, "Email not exists")
+            return redirect("/login/")
+        
+        user=authenticate(request,username=user_obj.username,password=password)
+        
+        if user is None:
+            messages.warning(request, "Invalid password")
+            return redirect("/login/")
+        else:
+            login(request,user)
+            return redirect("/")
+    
+    return render(request,"login.html")
+
+
+def logout_view(request):
+    logout(request)
+    return redirect("/login/")
+
+
+@login_required(login_url="/login/")
 def add_task(request):
     if request.method=="POST":
         data=request.POST
@@ -51,6 +82,7 @@ def add_task(request):
     return render(request,"home.html",context)
 
 
+@login_required(login_url="/login/")
 # for updating the task
 def update_task(request,id):
     queryset=Task.objects.get(id=id)
@@ -73,6 +105,7 @@ def update_task(request,id):
     return render(request,"update.html",context)
 
 
+@login_required(login_url="/login/")
 def delete_task(request,id):
     queryset=Task.objects.get(id=id)
     queryset.delete()
